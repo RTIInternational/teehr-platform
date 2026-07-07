@@ -24,6 +24,7 @@ fi
 cd "$TF_DIR"
 
 echo "Using var-file: $TF_VAR_FILE"
+echo "Generating import targets from $MANIFEST_FILE ..."
 
 # Import autoscaler helm release if not already in state.
 if terraform state show helm_release.cluster_autoscaler >/dev/null 2>&1; then
