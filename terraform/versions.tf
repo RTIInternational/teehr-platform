@@ -13,8 +13,5 @@ terraform {
     }
   }
 
-  # Configure backend via -backend-config files/flags per account and environment.
-  # Example:
-  # terraform init -backend-config=backend/dev.hcl
   backend "s3" {}
 }
