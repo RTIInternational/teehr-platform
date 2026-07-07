@@ -13,6 +13,8 @@ cd terraform
 terraform init
 ```
 
+State backend configuration is defined in [terraform/versions.tf](terraform/versions.tf) and currently points to the shared state bucket `teehr-terraform-state` in `us-east-2`.
+
 ### Plan / Apply
 
 ```bash

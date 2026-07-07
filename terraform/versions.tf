@@ -13,5 +13,9 @@ terraform {
     }
   }
 
-  backend "s3" {}
+  backend "s3" {
+    bucket = "teehr-terraform-state"
+    key    = "terraform/state"
+    region = "us-east-2"
+  }
 }
