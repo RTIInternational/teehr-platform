@@ -43,3 +43,29 @@ terraform output
 2. Verify target resources exist in AWS (EKS cluster, IAM roles, S3 bucket, and ECR repositories).
 3. Record key output values needed by app deployment workflows.
 4. Re-run `terraform plan -var-file=teehr-hub.tfvars` and confirm it reports no pending changes.
+
+### Cert-Manager Ownership (Terraform)
+
+This repository now defines cert-manager via Terraform Helm provider in [terraform/cert-manager.tf](terraform/cert-manager.tf).
+
+For existing clusters, prefer adopting the current Helm release into Terraform state instead of uninstalling cert-manager.
+
+1. Initialize providers:
+
+```bash
+cd terraform
+terraform init
+```
+
+2. Import existing cert-manager Helm release (if already installed):
+
+```bash
+terraform import helm_release.cert_manager cert-manager/cert-manager
+```
+
+3. Validate and apply:
+
+```bash
+terraform plan -var-file=teehr-hub.tfvars
+terraform apply -var-file=teehr-hub.tfvars
+```
