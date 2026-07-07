@@ -4,7 +4,7 @@ resource "helm_release" "cert_manager" {
   chart            = "cert-manager"
   version          = "v1.12.0"
   namespace        = "cert-manager"
-  create_namespace = true
+  create_namespace = false
 
   values = [yamlencode({
     installCRDs = true
