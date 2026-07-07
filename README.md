@@ -87,3 +87,21 @@ cd terraform
 terraform plan -var-file=teehr-hub.tfvars
 terraform apply -var-file=teehr-hub.tfvars
 ```
+
+### Autoscaler Ownership (Terraform)
+
+This repository manages the Cluster Autoscaler Helm release and Node Termination Handler manifests in [terraform/autoscaler.tf](terraform/autoscaler.tf).
+
+For existing clusters, import current resources before first apply:
+
+```bash
+./scripts/import-autoscaler-resources.sh
+```
+
+Then reconcile with Terraform:
+
+```bash
+cd terraform
+terraform plan -var-file=teehr-hub.tfvars
+terraform apply -var-file=teehr-hub.tfvars
+```
