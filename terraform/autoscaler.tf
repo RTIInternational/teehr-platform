@@ -21,10 +21,10 @@ resource "helm_release" "cluster_autoscaler" {
       }
     }
     extraArgs = {
-      "scale-down-unneeded-time"    = "5m"
+      "scale-down-unneeded-time"     = "5m"
       "skip-nodes-with-local-storage" = "false"
-      "balance-similar-node-groups" = "true"
-      expander                      = "least-waste"
+      "balance-similar-node-groups"  = "true"
+      expander                        = "least-waste"
     }
   })]
 }
