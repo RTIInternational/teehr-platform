@@ -74,7 +74,13 @@ terraform apply -var-file=teehr-hub.tfvars
 
 This repository manages Contour with Kubernetes manifests in [terraform/contour.tf](terraform/contour.tf) using [terraform/manifests/contour.yaml](terraform/manifests/contour.yaml).
 
-The first apply after introducing this resource will adopt/update the existing Contour objects in-cluster. No Helm import step is required for this manifest-based handoff.
+For existing clusters where Contour objects already exist, import them into Terraform state before the first apply:
+
+```bash
+./scripts/import-contour-manifests.sh
+```
+
+This avoids "Cannot create resource that already exists" errors during the first Terraform apply.
 
 ```bash
 cd terraform
