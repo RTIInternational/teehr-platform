@@ -69,3 +69,15 @@ terraform import helm_release.cert_manager cert-manager/cert-manager
 terraform plan -var-file=teehr-hub.tfvars
 terraform apply -var-file=teehr-hub.tfvars
 ```
+
+### Contour Ownership (Terraform)
+
+This repository manages Contour with Kubernetes manifests in [terraform/contour.tf](terraform/contour.tf) using [terraform/manifests/contour.yaml](terraform/manifests/contour.yaml).
+
+The first apply after introducing this resource will adopt/update the existing Contour objects in-cluster. No Helm import step is required for this manifest-based handoff.
+
+```bash
+cd terraform
+terraform plan -var-file=teehr-hub.tfvars
+terraform apply -var-file=teehr-hub.tfvars
+```
