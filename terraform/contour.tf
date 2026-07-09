@@ -8,7 +8,7 @@ locals {
   contour_manifest_documents = [
     for doc in split("\n---\n", local.contour_manifest_raw) :
     trimspace(doc)
-    if trimspace(doc) != "" && !startswith(trimspace(doc), "#")
+    if length(regexall("(?m)^\\s*[^#\\s].*$", doc)) > 0
   ]
 
   contour_manifest_objects_all = [
