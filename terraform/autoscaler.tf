@@ -33,7 +33,7 @@ locals {
   node_termination_manifest_documents = [
     for doc in split("\n---\n", file("${path.module}/manifests/node-termination-handler.yaml")) :
     trimspace(doc)
-    if trimspace(doc) != "" && !startswith(trimspace(doc), "#")
+    if length(regexall("(?m)^\\s*[^#\\s].*$", doc)) > 0
   ]
 
   node_termination_manifest_objects = [

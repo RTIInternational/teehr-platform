@@ -10,3 +10,30 @@ resource "helm_release" "cert_manager" {
     installCRDs = true
   })]
 }
+
+locals {
+  cert_manager_manifest_documents = [
+    for doc in split("\n---\n", file("${path.module}/manifests/cert-manager.yaml")) :
+    trimspace(doc)
+    if length(regexall("(?m)^\\s*[^#\\s].*$", doc)) > 0
+  ]
+
+  cert_manager_manifest_objects = [
+    for doc in local.cert_manager_manifest_documents : yamldecode(doc)
+  ]
+}
+
+resource "kubernetes_manifest" "cert_manager" {
+  for_each = {
+    for obj in local.cert_manager_manifest_objects :
+    "${obj.kind}:${lookup(obj.metadata, "namespace", "cluster")}:${obj.metadata.name}" => obj
+  }
+
+  manifest = each.value
+
+  depends_on = [helm_release.cert_manager]
+
+  field_manager {
+    force_conflicts = true
+  }
+}
