@@ -15,7 +15,7 @@ locals {
   cert_manager_manifest_documents = [
     for doc in split("\n---\n", file("${path.module}/manifests/cert-manager.yaml")) :
     trimspace(doc)
-    if trimspace(doc) != "" && !startswith(trimspace(doc), "#")
+    if trimspace(regexreplace(doc, "(?m)^\\s*#.*$", "")) != ""
   ]
 
   cert_manager_manifest_objects = [
